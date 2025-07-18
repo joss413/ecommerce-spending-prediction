@@ -3,17 +3,18 @@ import pandas as pd
 import joblib
 import numpy as np
 
-# Load model and dataset
+# Load model
 @st.cache_data
 def load_model():
     return joblib.load("model.joblib")
 
-@st.cache_data
-def load_data():
-    return pd.read_csv("Ecommerce_Customers.csv")
+# Load dataset (commented out to avoid FileNotFoundError)
+# @st.cache_data
+# def load_data():
+#     return pd.read_csv("Ecommerce_Customers.csv")
 
 model = load_model()
-df = load_data()
+# df = load_data()  # Commented out
 
 st.title("📱 Mobile App vs Website Prediction")
 st.markdown("### Predict yearly amount spent based on customer behavior")
@@ -32,9 +33,9 @@ if st.button("Predict Yearly Amount Spent"):
     prediction = model.predict(input_data)[0]
     st.success(f"💰 Predicted Yearly Amount Spent: **${prediction:,.2f}**")
 
-# Show dataset preview
-if st.checkbox("Show Dataset Preview"):
-    st.dataframe(df.head())
+# Show dataset preview (commented out since dataset is not loaded)
+# if st.checkbox("Show Dataset Preview"):
+#     st.dataframe(df.head())
 
 st.markdown("---")
 st.write("Model trained using **Linear Regression** with R² = 0.981")
