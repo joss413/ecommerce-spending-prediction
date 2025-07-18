@@ -29,12 +29,12 @@ git clone https://github.com/yourusername/ecommerce-spending-prediction.git
 cd ecommerce-spending-prediction
  ```
 2. **Install dependencies:**:   
-   ```commandline
-    pip install -r requirements.txt
-   ```
+```commandline
+pip install -r requirements.txt
+```
 3. **Run the Streamlit app:**:   
-   ```commandline
-    streamlit run app.py
+```commandline
+streamlit run app.py
    ```
 
 🔧 Features
