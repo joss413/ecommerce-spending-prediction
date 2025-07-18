@@ -18,6 +18,25 @@ Please download the dataset manually from:
 
 and place the file `Ecommerce_Customers.csv` in the project root folder if you want to train or test locally.
 
+## 🔍 Features
+
+- Predict yearly amount spent from customer behavior inputs.
+
+- Interactive UI with sidebar controls.
+
+- Demo EDA using synthetic data (no private dataset included).
+
+- Trained Linear Regression model with R² score of 0.981 on real data.   
+
+---
+## 📷 App Interface
+
+|E-Commerce Spending Prediction App Interface  | Plot a bar chart of feature importance  |
+|----------------|-------------------|--------------------|
+| ![ App UI]() | ![results](images/app_interface_images/stream2.png) |
+
+---
+
 ---
 
 ### Installation
@@ -36,16 +55,6 @@ pip install -r requirements.txt
 ```commandline
 streamlit run app.py
    ```
-
-🔧 Features
-
-Predict yearly amount spent from customer behavior inputs.
-
-Interactive UI with sidebar controls.
-
-Demo EDA using synthetic data (no private dataset included).
-
-Trained Linear Regression model with R² score of 0.981 on real data.   
 
 🔧 Files in This Repo
 
