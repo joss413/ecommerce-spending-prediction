@@ -37,11 +37,15 @@ st.write(f"Intercept: {intercept:.2f}")
 
 # Bar chart of coefficients
 st.subheader("Feature Importance (Coefficient Magnitude)")
+
 coef_magnitude = np.abs(coefficients)
 fig, ax = plt.subplots()
 ax.bar(feature_names, coef_magnitude, color='skyblue')
 ax.set_ylabel("Coefficient Magnitude")
 ax.set_title("Feature Importance in Linear Regression")
+plt.xticks(rotation=30, ha='right')  
+plt.tight_layout() 
+
 st.pyplot(fig)
 
 st.markdown("---")
