@@ -3,12 +3,15 @@ import joblib
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Load model once and cache it
+# Load model
 @st.cache_data
 def load_model():
     return joblib.load("model.joblib")
 
 model = load_model()
+
+# feature names 
+feature_names = ["Avg. Session Length", "Time on App", "Time on Website", "Membership Length"]
 
 st.set_page_config(page_title="Yearly Amount Spent Prediction", layout="wide")
 st.title("📱 Mobile App vs Website Prediction")
@@ -29,7 +32,6 @@ if st.sidebar.button("Predict Yearly Amount Spent"):
     st.success(f"💰 Predicted Yearly Amount Spent: **${prediction:,.2f}**")
 
     # Feature contributions (value * coefficient)
-    feature_names = ["Avg. Session Length", "Time on App", "Time on Website", "Membership Length"]
     contributions = input_features.flatten() * model.coef_
 
     # Plot feature contributions
@@ -41,7 +43,6 @@ if st.sidebar.button("Predict Yearly Amount Spent"):
     plt.xticks(rotation=30, ha='right')
     plt.tight_layout()
 
-    # Add value labels on bars
     for bar in bars:
         height = bar.get_height()
         ax.annotate(f'{height:.2f}',
@@ -53,13 +54,13 @@ if st.sidebar.button("Predict Yearly Amount Spent"):
 
     st.pyplot(fig)
 
-# Show model coefficients & intercept (simplified table)
+# model coefficients & intercept
 st.subheader("Model Coefficients & Intercept")
 coef_df = {name: coef for name, coef in zip(feature_names, model.coef_)}
 st.table(coef_df)
 st.write(f"Intercept: {model.intercept_:.2f}")
 
-# Coefficient magnitude bar chart (feature importance)
+# Coefficient magnitude bar chart
 st.subheader("Feature Importance (Coefficient Magnitude)")
 coef_magnitude = np.abs(model.coef_)
 fig2, ax2 = plt.subplots(figsize=(8,4))
@@ -82,4 +83,3 @@ st.pyplot(fig2)
 
 st.markdown("---")
 st.write("Model trained using **Linear Regression** with R² = 0.981")
-
