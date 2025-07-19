@@ -33,7 +33,7 @@ and place the file `Ecommerce_Customers.csv` in the project root folder if you w
 
 | E-Commerce Spending Prediction App Interface | Plot a bar chart of feature importance |
 |----------------------------------------------|---------------------------------------|
-| ![App UI](images/interface1.png)             | ![Results](images/interface2.png)     |
+| ![App UI](images/interface11.png)             | ![Results](images/interface12.png)     |
 
 
 ---
