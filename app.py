@@ -10,9 +10,10 @@ def load_model():
 
 model = load_model()
 
-# feature names 
+# Feature names
 feature_names = ["Avg. Session Length", "Time on App", "Time on Website", "Membership Length"]
 
+# Streamlit page settings
 st.set_page_config(page_title="Yearly Amount Spent Prediction", layout="wide")
 st.title("📱 Mobile App vs Website Prediction")
 st.markdown("### Predict yearly amount spent based on customer behavior")
@@ -34,52 +35,57 @@ if st.sidebar.button("Predict Yearly Amount Spent"):
     # Feature contributions (value * coefficient)
     contributions = input_features.flatten() * model.coef_
 
-    # Plot feature contributions
-    fig, ax = plt.subplots(figsize=(8, 6))
-    bars = ax.bar(feature_names, contributions, color='mediumseagreen')
-    ax.set_ylabel("Contribution to Prediction ($)")
-    ax.set_title("Feature Contributions to Predicted Amount")
-    ax.axhline(0, color='grey', linewidth=0.8)
-    plt.xticks(rotation=30, ha='right')
-    plt.tight_layout()
+    # Create two columns 
+    col1, col2 = st.columns(2)
 
-    for bar in bars:
-        height = bar.get_height()
-        ax.annotate(f'{height:.2f}',
-                    xy=(bar.get_x() + bar.get_width() / 2, height),
-                    xytext=(0, 5 if height >= 0 else -15),
-                    textcoords="offset points",
-                    ha='center', va='bottom' if height >= 0 else 'top',
-                    fontsize=9, color='black')
+    # --- Chart 1: Feature Contributions ---
+    with col1:
+        st.subheader("Feature Contributions to Prediction")
+        fig, ax = plt.subplots(figsize=(4, 4))
+        bars = ax.bar(feature_names, contributions, color='mediumseagreen')
+        ax.set_ylabel("Contribution ($)")
+        ax.axhline(0, color='grey', linewidth=0.8)
+        plt.xticks(rotation=30, ha='right')
+        plt.tight_layout()
 
-    st.pyplot(fig)
+        for bar in bars:
+            height = bar.get_height()
+            ax.annotate(f'{height:.2f}',
+                        xy=(bar.get_x() + bar.get_width() / 2, height),
+                        xytext=(0, 5 if height >= 0 else -15),
+                        textcoords="offset points",
+                        ha='center', va='bottom' if height >= 0 else 'top',
+                        fontsize=8)
 
-# model coefficients & intercept
+        st.pyplot(fig)
+
+    # --- Chart 2: Feature Importance ---
+    with col2:
+        st.subheader("Feature Importance (Coefficient Magnitude)")
+        coef_magnitude = np.abs(model.coef_)
+        fig2, ax2 = plt.subplots(figsize=(4, 4))
+        bars2 = ax2.bar(feature_names, coef_magnitude, color='skyblue')
+        ax2.set_ylabel("Magnitude")
+        plt.xticks(rotation=30, ha='right')
+        plt.tight_layout()
+
+        for bar in bars2:
+            height = bar.get_height()
+            ax2.annotate(f'{height:.2f}',
+                         xy=(bar.get_x() + bar.get_width() / 2, height),
+                         xytext=(0, 5),
+                         textcoords="offset points",
+                         ha='center', va='bottom',
+                         fontsize=8)
+
+        st.pyplot(fig2)
+
+# Model coefficients & intercept
+st.markdown("---")
 st.subheader("Model Coefficients & Intercept")
 coef_df = {name: coef for name, coef in zip(feature_names, model.coef_)}
 st.table(coef_df)
 st.write(f"Intercept: {model.intercept_:.2f}")
-
-# Coefficient magnitude bar chart
-st.subheader("Feature Importance (Coefficient Magnitude)")
-coef_magnitude = np.abs(model.coef_)
-fig2, ax2 = plt.subplots(figsize=(8,6))
-bars2 = ax2.bar(feature_names, coef_magnitude, color='skyblue')
-ax2.set_ylabel("Coefficient Magnitude")
-ax2.set_title("Feature Importance in Linear Regression")
-plt.xticks(rotation=30, ha='right')
-plt.tight_layout()
-
-for bar in bars2:
-    height = bar.get_height()
-    ax2.annotate(f'{height:.2f}',
-                 xy=(bar.get_x() + bar.get_width() / 2, height),
-                 xytext=(0, 5),
-                 textcoords="offset points",
-                 ha='center', va='bottom',
-                 fontsize=9, color='black')
-
-st.pyplot(fig2)
 
 st.markdown("---")
 st.write("Model trained using **Linear Regression** with R² = 0.981")
