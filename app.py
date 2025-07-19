@@ -63,7 +63,7 @@ st.write(f"Intercept: {model.intercept_:.2f}")
 # Coefficient magnitude bar chart
 st.subheader("Feature Importance (Coefficient Magnitude)")
 coef_magnitude = np.abs(model.coef_)
-fig2, ax2 = plt.subplots(figsize=(8,5))
+fig2, ax2 = plt.subplots(figsize=(8,6))
 bars2 = ax2.bar(feature_names, coef_magnitude, color='skyblue')
 ax2.set_ylabel("Coefficient Magnitude")
 ax2.set_title("Feature Importance in Linear Regression")
