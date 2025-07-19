@@ -35,7 +35,7 @@ if st.sidebar.button("Predict Yearly Amount Spent"):
     contributions = input_features.flatten() * model.coef_
 
     # Plot feature contributions
-    fig, ax = plt.subplots(figsize=(8,4))
+    fig, ax = plt.subplots(figsize=(8, 6))
     bars = ax.bar(feature_names, contributions, color='mediumseagreen')
     ax.set_ylabel("Contribution to Prediction ($)")
     ax.set_title("Feature Contributions to Predicted Amount")
