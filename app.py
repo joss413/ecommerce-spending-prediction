@@ -45,7 +45,7 @@ if st.sidebar.button("Predict Yearly Amount Spent"):
     contributions = input_features.flatten() * model.coef_
 
     # Plot feature contributions (smaller figure)
-    fig, ax = plt.subplots(figsize=(5, 3))
+    fig, ax = plt.subplots(figsize=(8, 6))
     bars = ax.bar(feature_names, contributions, color='mediumseagreen')
     ax.set_ylabel("Contribution to Prediction ($)")
     ax.set_title("Feature Contributions")
@@ -72,7 +72,7 @@ st.write(f"Intercept: {model.intercept_:.2f}")
 # Coefficient magnitude bar chart
 st.subheader("Feature Importance (Coefficient Magnitude)")
 coef_magnitude = np.abs(model.coef_)
-fig2, ax2 = plt.subplots(figsize=(5, 3))
+fig2, ax2 = plt.subplots(figsize=(8, 6))
 bars2 = ax2.bar(feature_names, coef_magnitude, color='skyblue')
 ax2.set_ylabel("Coefficient Magnitude")
 ax2.set_title("Feature Importance")
